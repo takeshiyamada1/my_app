@@ -30,9 +30,10 @@ textarea{
 
 .center{
 	text-align: center;
-	h1{
-		margin-bottom: 10px;
-	}
+}
+
+.center h1{
+	margin-bottom: 10px;
 }
 
 /*typography*/
@@ -71,10 +72,11 @@ p{
 	letter-spacing: -1px;
 	padding-top: 9px;
 	font-weight: bold;
-	&:hover {
-		color: #fff;
-		text-decoration:none;
-	}
+}
+
+#logo:hover{
+	color: #fff;
+	text-decoration: none;
 }
 
 /*footer*/
@@ -83,26 +85,24 @@ footer{
 	padding-top: 5px;
 	border-top: 1px solid $gray-medium-light;
 	color: $light-gray;
+}
+footer a{
+	color: #555;
+}
+footer a:hover{
+	color: #222;
+}
 
-	a{
-		color: #555;
-		&:hover{
-			color: #222;
-		}
-	}
-
-	small {
-		float: left;
-	}
-	ul{
-		float: right;
-		list-style: none;
-
-		li{
-			float: left;
-			margin-left: 15px;
-		}
-	}
+footer small{
+	float: left;
+}
+footer ul{
+	float: right;
+	list-style: none;
+}
+footer ul li{
+	float: left;
+	margin-left: 15px;
 }
 
 /* miscellaneous*/
@@ -118,30 +118,30 @@ footer{
 
 
 /*sidebar*/
-aside{
-	section.user_info{
+aside section.user_info{
 		margin-top: 20px;
-	}
-	section{
+}
+aside section{
 		padding: 10px 0;
 		margin-top: 20px;
-		&:first-child{
-			border: 0;
-			padding-top: 0;
-		}
-		span{
-			display: block;
-			margin-bottom: 3px;
-			line-height: 1;
-		}
-		h1{
-			font-size: 1.4em;
-			text-align: left;
-			letter-spacing: -1px;
-			margin-bottom: 3px;
-			margin-top: 0px;
-		}
-	}
+}
+aside section:first-child{
+	border: 0;
+	padding-top: 0;
+
+}
+		
+aside span{
+	display: block;
+	margin-bottom: 3px;
+	line-height: 1;
+}
+aside h1{
+	font-size: 1.4em;
+	text-align: left;
+	letter-spacing: -1px;
+	margin-bottom: 3px;
+	margin-top: 0px;
 }
 
 .gravatar{
