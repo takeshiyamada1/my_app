@@ -1,0 +1,15 @@
+one:
+  follower: tsubasa
+  followed: sayami
+
+two:
+  follower: tsubasa
+  followed: mallory
+
+three:
+  follower: sayami
+  followed: tsubasa
+
+four:
+  follower: lana
+  followed: tsubasa

@@ -69,6 +69,35 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+   test "should follow and unfollow a user" do
+    tsubasa = users(:tsubasa)
+    lana  = users(:lana)
+    assert_not tsubasa.following?(lana)
+    tsubasa.follow(lana)
+    assert tsubasa.following?(lana)
+    assert lana.followers.include?(tsubasa)
+    tsubasa.unfollow(lana)
+    assert_not tsubasa.following?(lana)
+  end
 
+  test "feed should have the right posts" do
+    tsubasa = users(:tsubasa)
+    sayami = users(:sayami)
+    lana = users(:lana)
+    #フォローしているユーザーの投稿を確認
+    sayami.microposts.each do |post_following|
+      assert tsubasa.feed.include?(post_following)
+    end
+
+    #自分自身の投稿を確認
+    tsubasa.microposts.each do |post_self|
+      assert tsubasa.feed.include?(post_self)
+    end
+
+    #フォローしていないユーザーの投稿を確認
+    lana.microposts.each do |post_unfollowed|
+      assert_not tsubasa.feed.include?(post_unfollowed)
+    end
+  end
 end
 
