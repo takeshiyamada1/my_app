@@ -26,7 +26,7 @@ class FollowingTest < ActionDispatch::IntegrationTest
     end
   end
 
-    test "should follow a user the standard way" do
+  test "should follow a user the standard way" do
     assert_difference '@user.following.count', 1 do
       post relationships_path, followed_id: @other.id
     end
