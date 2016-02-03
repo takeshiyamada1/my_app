@@ -3,7 +3,7 @@ require 'test_helper'
 class UsersLoginTest < ActionDispatch::IntegrationTest
 
   def setup
-  	@user = users(:tsubasa)
+    @user = users(:tsubasa)
   end
 
   test "login with invalid information" do
@@ -17,17 +17,17 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   end
 
   test "login with valid information" do
-  	get login_path
-  	post login_path, session: { email: @user.email, password: 'password' }
-  	assert_redirected_to @user
-  	follow_redirect!
-  	assert_template 'users/show'
-  	assert_select "a[href=?]", login_path, count: 0
-  	assert_select "a[href=?]", logout_path
-  	assert_select "a[href=?]", user_path(@user)
+    get login_path
+    post login_path, session: { email: @user.email, password: 'password' }
+    assert_redirected_to @user
+    follow_redirect!
+    assert_template 'users/show'
+    assert_select "a[href=?]", login_path, count: 0
+    assert_select "a[href=?]", logout_path
+    assert_select "a[href=?]", user_path(@user)
   end
 
-   test "login with valid information followed by logout" do
+  test "login with valid information followed by logout" do
     get login_path
     post login_path, session: { email: @user.email, password: 'password' }
     assert is_logged_in?
@@ -47,13 +47,13 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", user_path(@user), count: 0
   end
 
- 	test "login with remembering" do
- 		log_in_as(@user, remember_me: '1')
- 		assert_not_nil cookies['remember_token']
- 	end
+  test "login with remembering" do
+    log_in_as(@user, remember_me: '1')
+    assert_not_nil cookies['remember_token']
+  end
 
- 	test "login without remebering" do
- 		log_in_as(@user, remember_me: '0')
- 		assert_nil cookies['remember_token']
- 	end
+  test "login without remebering" do
+    log_in_as(@user, remember_me: '0')
+    assert_nil cookies['remember_token']
+  end
 end
