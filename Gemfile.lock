@@ -241,6 +241,14 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.0.1)
+      byebug (~> 3.4)
+      pry (~> 0.10)
+    pry-doc (0.8.0)
+      pry (~> 0.9)
+      yard (~> 0.8)
+    pry-rails (0.3.4)
+      pry (>= 0.9.10)
     puma (2.11.1)
       rack (>= 1.1, < 2.0)
     rack (1.6.4)
@@ -319,6 +327,7 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
     will_paginate (3.0.7)
     xml-simple (1.1.5)
+    yard (0.8.7.6)
 
 PLATFORMS
   ruby
@@ -327,7 +336,6 @@ DEPENDENCIES
   bcrypt (= 3.1.7)
   bootstrap-sass (= 3.2.0.0)
   bootstrap-will_paginate (= 0.0.10)
-  byebug (= 3.4.0)
   carrierwave (= 0.10.0)
   coffee-rails (= 4.1.0)
   faker (= 1.4.2)
@@ -339,6 +347,9 @@ DEPENDENCIES
   mini_magick (= 3.8.0)
   minitest-reporters (= 1.0.5)
   pg (= 0.17.1)
+  pry-byebug
+  pry-doc
+  pry-rails
   puma (= 2.11.1)
   rails (= 4.2.4)
   rails_12factor (= 0.0.2)
