@@ -21,10 +21,10 @@ gem 'jbuilder',     '2.2.3'
 gem 'sdoc',         '0.4.0', group: :doc
 
 group :development, :test do
-  gem 'sqlite3',     '1.3.9'
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'pry-byebug'
+  gem 'mysql2',      '0.3.20'
   gem 'web-console', '2.0.0.beta3'
   gem 'spring',      '1.1.3'
 end
