@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UsersIndexTest < ActionDispatch::IntegrationTest
-
+  fixtures :users
   def setup
     @admin     = users(:tsubasa)
     @non_admin = users(:sayami)

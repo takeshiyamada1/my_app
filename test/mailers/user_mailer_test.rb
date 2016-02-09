@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class UserMailerTest < ActionMailer::TestCase
+  
+  fixtures :users
 
   test "account_activation" do
     user = users(:tsubasa)

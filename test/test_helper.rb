@@ -5,7 +5,6 @@ require 'rails/test_help'
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical
   # order.
-  fixtures :all
 
   # テストユーザーがログインしていればtrueを返す
   def is_logged_in?

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MicropostsControllerTest < ActionController::TestCase
-
+  fixtures :users, :microposts
   def setup
     @micropost = microposts(:orange)
   end
