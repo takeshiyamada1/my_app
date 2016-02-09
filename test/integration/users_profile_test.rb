@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class UsersProfileTest < ActionDispatch::IntegrationTest
+
+  fixtures :users
   include ApplicationHelper
 
   def setup

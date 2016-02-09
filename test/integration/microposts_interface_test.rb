@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
-
+  fixtures :users
   def setup
     @user = users(:tsubasa)
   end

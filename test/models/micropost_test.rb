@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class MicropostTest < ActiveSupport::TestCase
+
+  fixtures :users, :microposts
   
   def setup
     @user = users(:tsubasa)

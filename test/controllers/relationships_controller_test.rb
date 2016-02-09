@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class RelationshipsControllerTest < ActionController::TestCase
-
+  fixtures :relationships
   test "create should require logged-in user" do
     assert_no_difference 'Relationship.count' do
       post :create

@@ -2,6 +2,8 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
 
+  fixtures :users
+
   def setup
     @user = users(:tsubasa)
     @other_user = users(:sayami)

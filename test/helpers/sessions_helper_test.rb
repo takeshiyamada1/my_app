@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class SessionsHelperTest < ActionView::TestCase
+  fixtures :users
   def setup
     @user = users(:tsubasa)
     remember(@user)
