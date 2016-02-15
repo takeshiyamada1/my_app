@@ -1,11 +1,9 @@
 require 'test_helper'
 
 class UsersLoginTest < ActionDispatch::IntegrationTest
-
-  fixtures :users
-
+  
   def setup
-    @user = users(:tsubasa)
+    @user = create :tsubasa
   end
 
   test "login with invalid information" do

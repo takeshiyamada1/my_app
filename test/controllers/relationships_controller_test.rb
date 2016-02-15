@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class RelationshipsControllerTest < ActionController::TestCase
-  fixtures :relationships
   test "create should require logged-in user" do
     assert_no_difference 'Relationship.count' do
       post :create
@@ -9,9 +8,10 @@ class RelationshipsControllerTest < ActionController::TestCase
     assert_redirected_to login_url
   end
 
-  test "destroy should require logged-in user" do
+  test "destroy should require logged-in" do
+    one = create :one
     assert_no_difference 'Relationship.count' do
-      delete :destroy, id: relationships(:one)
+      delete :destroy, id: one
     end
     assert_redirected_to login_url
   end

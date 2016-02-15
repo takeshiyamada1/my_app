@@ -27,6 +27,7 @@ group :development, :test do
   gem 'mysql2',      '0.3.20'
   gem 'web-console', '2.0.0.beta3'
   gem 'spring',      '1.1.3'
+  gem 'factory_girl_rails', '~> 4.5.0'
 end
 
 group :test do

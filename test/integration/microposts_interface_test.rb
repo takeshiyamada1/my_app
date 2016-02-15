@@ -1,9 +1,8 @@
 require 'test_helper'
 
 class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
-  fixtures :users
   def setup
-    @user = users(:tsubasa)
+    @user = create :tsubasa
   end
 
   test "micropost interface" do
@@ -31,7 +30,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
       delete micropost_path(first_micropost)
     end
     # 違うユーザーのプロフィールにアクセスする
-    get user_path(users(:lana))
+    get user_path(create :lana)
     assert_select 'a', text: 'delete', count: 0
   end
 end

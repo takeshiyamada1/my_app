@@ -1,10 +1,9 @@
 require 'test_helper'
 
 class FollowingTest < ActionDispatch::IntegrationTest
-  fixtures :users
   def setup
-    @user = users(:tsubasa)
-    @other = users(:lana)
+    @user = create :tsubasa
+    @other = create :lana
     log_in_as(@user)
   end
 
