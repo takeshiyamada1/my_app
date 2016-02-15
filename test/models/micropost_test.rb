@@ -1,11 +1,8 @@
 require 'test_helper'
 
 class MicropostTest < ActiveSupport::TestCase
-
-  fixtures :users, :microposts
-  
   def setup
-    @user = users(:tsubasa)
+    @user = create :tsubasa
     @micropost = @user.microposts.build(content: "Lorem ipsum")
   end
 
@@ -29,6 +26,7 @@ class MicropostTest < ActiveSupport::TestCase
   end
 
   test "order should be most recent first" do
-    assert_equal microposts(:most_recent), Micropost.first
+    microposts = create :most_recent
+    assert_equal Micropost.first, microposts
   end
 end

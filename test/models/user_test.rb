@@ -2,10 +2,8 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
-  fixtures :users, :relationships
-
   def setup
-    @user = User.new(name: "Example User", email: "user@example.com", password: "foobar", password_confirmation: "foobar")
+    @user = User.new(name: "Example User", email: "user@example.com", password: "password", password_confirmation: "password")
   end
 
   test "should be valid" do
@@ -72,8 +70,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
    test "should follow and unfollow a user" do
-    tsubasa = users(:tsubasa)
-    lana  = users(:lana)
+    tsubasa = create :tsubasa
+    lana  = create :lana
     assert_not tsubasa.following?(lana)
     tsubasa.follow(lana)
     assert tsubasa.following?(lana)
@@ -83,9 +81,9 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "feed should have the right posts" do
-    tsubasa = users(:tsubasa)
-    sayami = users(:sayami)
-    lana = users(:lana)
+    tsubasa = create :tsubasa
+    sayami = create :sayami
+    lana = create :lana
     #フォローしているユーザーの投稿を確認
     sayami.microposts.each do |post_following|
       assert tsubasa.feed.include?(post_following)

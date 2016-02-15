@@ -2,9 +2,9 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+
 class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical
-  # order.
+  include FactoryGirl::Syntax::Methods
 
   # テストユーザーがログインしていればtrueを返す
   def is_logged_in?

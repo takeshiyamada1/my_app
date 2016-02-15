@@ -1,12 +1,10 @@
 require 'test_helper'
 
 class UsersProfileTest < ActionDispatch::IntegrationTest
-
-  fixtures :users
   include ApplicationHelper
 
   def setup
-    @user = users(:tsubasa)
+    @user = create :tsubasa
   end
 
   test "profile display" do

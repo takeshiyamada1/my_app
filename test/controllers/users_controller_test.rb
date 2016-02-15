@@ -2,11 +2,9 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
 
-  fixtures :users
-
   def setup
-    @user = users(:tsubasa)
-    @other_user = users(:sayami)
+    @user = create :tsubasa
+    @other_user = create :sayami
   end
 
   test "should redirect index when not logged in" do
