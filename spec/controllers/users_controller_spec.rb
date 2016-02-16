@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :UsersController
+RSpec.describe UsersController, type: :controller do
 
   let!(:user) { create :tsubasa }
   let(:other_user) { create :sayami }
@@ -17,27 +17,27 @@ RSpec.describe UsersController, type: :UsersController
 
   it "should redirect edit when not logged in" do
     get :edit , id: user
-    expect(flash).to_not be_empty?
+    expect(flash).to_not be_empty
     expect(response).to redirect_to login_url
   end
 
   it "should redirect update when not logged in" do
-    patch :update, id: user, user: { name: user.name, user.email }
-    expect(flash)to_not be_empty?
+    patch :update, id: user, user: { name: user.name, email: user.email }
+    expect(flash).to_not be_empty
     expect(response).to redirect_to login_url
   end
 
   it "should redirect edit when logged in as wrong user" do
     log_in_as(other_user)
     get :edit, id: user
-    expect(flash).to be_empty?
+    expect(flash).to be_empty
     expect(response).to redirect_to root_url
   end
 
   it "should redirect update when logged in as wrong user" do
     log_in_as(other_user)
-    pach :update, id: user, user: { name: user.name, email: user.email }
-    expect(flash).to be_empty?
+    patch :update, id: user, user: { name: user.name, email: user.email }
+    expect(flash).to be_empty
     expect(response).to redirect_to root_url
   end
 

@@ -8,7 +8,7 @@ RSpec.describe User,type: :models do
     expect(user).to be_valid
   end
 
-  it "name should be present" do
+  it "name should be presentds" do
     user.name = ' '
     expect(user).to_not be_valid
   end
@@ -31,20 +31,20 @@ RSpec.describe User,type: :models do
   it "email validation should accept valid addresses" do
     valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org first.last@foo.jp alice+bob@baz.cn]
     valid_addresses.each do |valid_address|
-      user.eamil = valid_address
+      user.email = valid_address
       expect(user).to be_valid, "#{valid_address.inspect} should be valid"
     end
   end
 
   it "email addresses should be unique" do
     duplicate_user = user.dup
-    duplicate_user.email = @user.email.upcase
+    duplicate_user.email = user.email.upcase
     user.save
     expect(duplicate_user).to_not be_valid
   end
 
   it "password should be present (nonblank)" do
-    @user.password = @user.password_confirmation = "" * 6
+    user.password = user.password_confirmation = "" * 6
     expect(user).to_not be_valid
   end
 
@@ -53,23 +53,23 @@ RSpec.describe User,type: :models do
   end
 
   it "associated microposts should be destroyed" do
-    @user.save
-    @user.microposts.create!(content: "Lorem ipsum")
+    user.save
+    user.microposts.create!(content: "Lorem ipsum")
     expect { user.destroy }.to change{ Micropost.count }.by(-1)
   end
 
-   test "should follow and unfollow a user" do
+  it "should follow and unfollow a user" do
     tsubasa = create :tsubasa
     lana  = create :lana
-    expect(tsubsa).to_not be_following(lana)
+    expect(tsubasa).to_not be_following(lana)
     tsubasa.follow(lana)
-    expect(tsubasa).to be_fallowing(lana)
+    expect(tsubasa).to be_following(lana)
     expect(lana.followers.include?(tsubasa)).to be_truthy
     tsubasa.unfollow(lana)
-    expect(tsubasa).to_not be_fallowing(lana)
+    expect(tsubasa).to_not be_following(lana)
   end
 
-  test "feed should have the right posts" do
+  it "feed should have the right posts" do
     tsubasa = create :tsubasa
     sayami = create :sayami
     lana = create :lana
@@ -83,7 +83,7 @@ RSpec.describe User,type: :models do
 
     #フォローしていないユーザーの投稿を確認
     lana.microposts.each do |post_unfollowed|
-      expect(tsubasa.feed.include?(post_unfollowed))to._not be_truthy
-b    end
+      expect(tsubasa.feed.include?(post_unfollowed)).to_not be_truthy
+    end
   end
 end
