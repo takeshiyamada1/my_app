@@ -1,11 +1,12 @@
-require 'test_helper'
+require 'rails_helper'
 
-class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
+RSpec.describe "Pending Examples MicropostsInterface" do
   def setup
     @user = create :tsubasa
   end
 
-  test "micropost interface" do
+  it "micropost interface" do
+    pending("change features")
     log_in_as(@user)
     get root_path
     assert_select 'div.pagination'

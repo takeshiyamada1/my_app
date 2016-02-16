@@ -1,8 +1,8 @@
-require 'test_helper'
+require 'rails_helper'
 
-class SiteLayoutTest < ActionDispatch::IntegrationTest
-
-  test "layout links" do
+RSpec.describe "Pending Examples SiteLayout" do
+  it "layout links" do
+    pending("change features")
     get root_path
     assert_template 'static_pages/home'
     assert_select "a[href=?]", root_path, count: 2

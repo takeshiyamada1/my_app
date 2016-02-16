@@ -1,13 +1,14 @@
-require 'test_helper'
+require 'rails_helper'
 
-class UsersProfileTest < ActionDispatch::IntegrationTest
+RSpec.describe "Pending Examples UsersProfile" do
   include ApplicationHelper
 
   def setup
     @user = create :tsubasa
   end
 
-  test "profile display" do
+  it "profile display" do
+    pending("change features")
     get user_path(@user)
     assert_template 'users/show'
     assert_select 'title', full_title(@user.name)

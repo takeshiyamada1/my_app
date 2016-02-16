@@ -1,12 +1,13 @@
-require 'test_helper'
+require 'rails_helper'
 
-class PasswordResetsTest < ActionDispatch::IntegrationTest
+RSpec.describe "Pending Examples PasswordResets" do
   def setup
     ActionMailer::Base.deliveries.clear
     @user = create :tsubasa
   end
 
-  test "password resets" do
+  it "password resets" do
+    pending("change features")
     get new_password_reset_path
     assert_template 'password_resets/new'
     # メールアドレスが無効

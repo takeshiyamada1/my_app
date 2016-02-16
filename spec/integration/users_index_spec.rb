@@ -1,12 +1,14 @@
-require 'test_helper'
+require 'rails_helper'
 
-class UsersIndexTest < ActionDispatch::IntegrationTest
+RSpec.describe "Pending Examples UsersIndex" do
+
   def setup
     @admin     = create :tsubasa 
     @non_admin = create :sayami
   end
 
-  test "index as admin including pagination and delete links" do
+  it "index as admin including pagination and delete links" do
+    pending("change features")
     log_in_as(@admin)
     get users_path
     assert_template 'users/index'
@@ -23,7 +25,8 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "index as non-admin" do
+  it "index as non-admin" do
+    pending("change features")
     log_in_as(@non_admin)
     get users_path
     assert_select 'a', text: 'delete', count: 0

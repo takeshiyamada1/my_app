@@ -1,11 +1,12 @@
-require 'test_helper'
+require 'rails_helper'
 
-class UsersEditTest < ActionDispatch::IntegrationTest
+RSpec.describe "Pending Examples UsersEdit" do
   def setup
     @user = create :tsubasa
   end
 
-  test "unsuccessful edit" do
+  it "unsuccessful edit" do
+    pending("change features")
     log_in_as(@user)
     get edit_user_path(@user)
     assert_template 'users/edit'
@@ -16,7 +17,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_template 'users/edit'
   end
 
-  test "successful edit" do
+  it "successful edit" do
+    pending("change features")
     log_in_as(@user)
     get edit_user_path(@user)
     assert_template 'users/edit'
@@ -33,7 +35,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_equal email, @user.email
   end
 
-  test "successful edit with friendly forwarding" do
+  it "successful edit with friendly forwarding" do
+    pending("change features")
     get edit_user_path(@user)
     log_in_as(@user)
     assert_redirected_to edit_user_path(@user)

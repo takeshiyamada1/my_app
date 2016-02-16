@@ -1,12 +1,12 @@
-require 'test_helper'
+require 'rails_helper'
 
-class UsersSignupTest < ActionDispatch::IntegrationTest
-
+RSpec.describe "Pending Examples UsersSignup" do
   def setup
     ActionMailer::Base.deliveries.clear
   end
 
-  test "invalid signup information" do
+  it "invalid signup information" do
+    pending("change features")
     get signup_path
     assert_no_difference 'User.count' do
       post users_path, user: { name:  "",
@@ -19,7 +19,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert_select 'div.field_with_errors'
   end
 
-  test "valid signup information with account activation" do
+  it "valid signup information with account activation" do
+    pending("change features")
     get signup_path
     assert_difference 'User.count', 1 do
       post users_path, user: { name:  "Example User",
