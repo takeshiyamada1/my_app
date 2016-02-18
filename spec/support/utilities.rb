@@ -20,9 +20,6 @@ def sign_in_as(user, options = {})
   visit login_path
   fill_in 'Email', with: user.email
   fill_in 'Password', with: password
-  if remember_me == '1'
-    check 'Remember me on this computer'
-  end
   click_button 'Log in'
 end
 private

@@ -11,6 +11,7 @@ RSpec.feature "UsersLogin",type: :feature do
     fill_in "Email", with: ' '
     fill_in "Password", with: ' '
     click_button 'Log in'
+    page.save_screenshot('file.png')
     expect(page).to have_selector 'h1', text: 'Log in'
     expect(page).to have_selector '.alert'
     visit root_path
