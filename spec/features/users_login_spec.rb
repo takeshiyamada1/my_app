@@ -19,12 +19,12 @@ RSpec.feature "UsersLogin",type: :feature do
   end
 
   it "login with valid information" do
-    pending('pending expected: "login" line28')
     visit login_path
-    fill_in "Email", with: "@user.email"
-    fill_in "Password", with: "password"
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: @user.password
+    binding.pry
     click_button 'Log in'
-    expect(logged_in?).to be false
+    expect(logged_in?).to be_truthy
     expect(current_path).to eq login_path(@user)
     follow_redirect!
     expect(page).to have_selector 'h1', text: @user.name
