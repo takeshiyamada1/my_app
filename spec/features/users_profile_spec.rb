@@ -8,7 +8,6 @@ RSpec.feature "UsersProfile",type: :feature do
   end
 
   it "profile display" do
-    pending("Couldn't find User")
     visit user_path(@user)
     expect(page).to have_selector 'h1', text: @user.name
     expect(page).to have_title full_title(@user.name)

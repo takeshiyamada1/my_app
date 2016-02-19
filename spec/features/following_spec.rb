@@ -3,12 +3,15 @@ require 'rails_helper'
 RSpec.feature "Following", type: :feature do
   before do
     @user = create :tsubasa
-    @other= create :lana
+    @other = create :lana
     sign_in_as(@user)
+    create :one
+    create :two
+    create :three
+    create :four
   end
 
   it "following page" do
-    pending('error line13')
     visit following_user_path(@user)
     expect(@user.following.empty?).to be false
     expect(page).to have_content @user.following.count
@@ -18,7 +21,6 @@ RSpec.feature "Following", type: :feature do
   end
 
   it "followers page" do
-    pending('error line23')
     visit followers_user_path(@user)
     expect(@user.followers.empty?).to be false
     expect(page).to have_content @user.followers.count
@@ -28,9 +30,9 @@ RSpec.feature "Following", type: :feature do
   end
 
   it "should follow a user the standard way" do
-    pending("Couldn't find User")
+    pending('error')
     visit user_path(@other)
-    expect { click_button 'Follow' }.to change{ @user.following.count }.by(1)
+    expect { click_on 'Follow' }.to change{ @user.following.count }.by(1)
   end
 
   it "should follow a user with Ajax" do 

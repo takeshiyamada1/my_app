@@ -6,7 +6,6 @@ RSpec.feature "UsersEdit",type: :feature do
   end
 
   it "unsuccessful edit" do
-    pending('Unable to find field "Name"')
     sign_in_as(@user)
     visit edit_user_path(@user)
     fill_in "Name", with: " "

@@ -24,7 +24,7 @@ FactoryGirl.define do
       factory :tsubasa_with_microposts do
         after :create do |user|
           create :orange, user: user
-          create :tau_manifesto, suer: user
+          create :tau_mainfesto, user: user
           create :cat_video, user: user
           create :most_recent, user: user
           create_list :micropost, 30, user: user
@@ -57,7 +57,7 @@ FactoryGirl.define do
       factory :lana_with_microposts do
         after :create do |user|
           create :tone, user: user
-          create :van, user: userds
+          create :van, user: user
         end
       end
     end
