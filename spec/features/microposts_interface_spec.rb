@@ -6,27 +6,29 @@ RSpec.feature "MicropostsInterface", type: :feature do
   end
 
   it "micropost interface" do
-    pending('error')
     sign_in_as(@user)
+    visit root_path
     expect(page).to have_selector 'div.pagination'
 
     #無効な送信
-    expect { click_button 'post' }.to_not change{ Micropost.count }
-    expect(page).to have_selector 'dive#error_explanation'
+    fill_in 'micropost_content', with: ' '
+    expect { click_button 'Post' }.to_not change{ Micropost.count }
+    expect(page).to have_selector 'div#error_explanation'
 
     #有効な送信
     content = "This micropost really ties the room together"
-    expect { click_button 'post' }.to change{ Micropost.count}.by(1)
-    expect(current_url).to eq root_url
-    follow_redirect!
+    fill_in 'micropost_content', with: content
+    expect { click_button 'Post' }.to change{ Micropost.count}.by(1)
+    expect(current_path).to eq root_path
     expect(page).to have_content content
 
     #投稿を削除する
     expect(page).to have_link 'delete'
-    first_micropost = @user.microposts.paginate(page: 1).first_micropost
-    expect { click_button  'delete', href: micropost_path(first_micropost) }.to change{ Micropost.count }.by(-1)
+    first_micropost = @user.microposts.paginate(page: 1).first
+    expect { click_link 'delete', href: micropost_path(first_micropost) }.to change{ Micropost.count }.by(-1)
+
     #違うユーザーのプロフィールにアクセスする
-    visit user_path(create :lana)
-    expect(page).to have_link 'delete'
+    visit user_path(create :lana_with_microposts)
+    expect(page).to have_no_link 'delete'
   end
 end
