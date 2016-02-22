@@ -23,8 +23,7 @@ RSpec.feature "UsersLogin",type: :feature do
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: @user.password
     click_button 'Log in'
-    page.save_screenshot('file.png')
-    expect(logged_in?).to be_truthy
+    expect(logged_in?(@user)).to be_truthy
     expect(current_path).to eq user_path(@user)
     expect(page).to have_selector 'h1', text: @user.name
     expect(page).to have_link nil, href: login_path, count: 0
@@ -37,14 +36,14 @@ RSpec.feature "UsersLogin",type: :feature do
     fill_in "Email", with: @user.email
     fill_in "Password", with: @user.password
     click_button 'Log in'
-    expect(logged_in?).to be_truthy
+    expect(logged_in?(@user)).to be_truthy
     expect(current_path).to eq user_path(@user)
     expect(page).to have_selector 'h1', text: @user.name
     expect(page).to have_link nil, href: login_path, count: 0
     expect(page).to have_link nil, href: logout_path
     expect(page).to have_link nil, href: user_path(@user)
     click_link 'Log out'
-    expect(logged_in?).to be_falsey
+    expect(logged_in?(@user)).to be_falsey
     expect(current_path).to eq root_path
     expect(page).to have_link nil, href: login_path
     expect(page).to have_no_link nil, href: logout_path

@@ -3,9 +3,9 @@ def is_logged_in?
   !session[:user_id].nil?
 end
 #feature spec 用テストユーザーがログインしていればtrueを返す
-def logged_in?
-  if current_path == user_path(@user)
-    click_on 'Account'
+def logged_in?(user)
+  if current_path == user_path(user)
+    click_link 'Account'
   end
   page.has_link? 'Log out'
 end
