@@ -2,14 +2,13 @@ require 'rails_helper'
 
 RSpec.feature "MicropostsInterface", type: :feature do
   before do
-    @user = create :tsubasa
+    @user = create :tsubasa_with_microposts
   end
 
   it "micropost interface" do
-    pending('pending')
+    pending('error')
     sign_in_as(@user)
-    visit root_path
-    expect(page).to have_selector 'div.pagenate'
+    expect(page).to have_selector 'div.pagination'
 
     #無効な送信
     expect { click_button 'post' }.to_not change{ Micropost.count }

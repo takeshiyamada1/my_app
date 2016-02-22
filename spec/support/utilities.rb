@@ -3,7 +3,10 @@ def is_logged_in?
   !session[:user_id].nil?
 end
 #feature spec 用テストユーザーがログインしていればtrueを返す
-def logged_in?
+def logged_in?(user)
+  if current_path == user_path(user)
+    click_link 'Account'
+  end
   page.has_link? 'Log out'
 end
 
@@ -20,9 +23,6 @@ def sign_in_as(user, options = {})
   visit login_path
   fill_in 'Email', with: user.email
   fill_in 'Password', with: password
-  if remember_me == '1'
-    check 'Remember me on this computer'
-  end
   click_button 'Log in'
 end
 private

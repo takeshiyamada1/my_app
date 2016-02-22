@@ -19,14 +19,12 @@ RSpec.feature "UsersLogin",type: :feature do
   end
 
   it "login with valid information" do
-    pending('pending expected: "login" line28')
     visit login_path
-    fill_in "Email", with: "@user.email"
-    fill_in "Password", with: "password"
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: @user.password
     click_button 'Log in'
-    expect(logged_in?).to be false
-    expect(current_path).to eq login_path(@user)
-    follow_redirect!
+    expect(logged_in?(@user)).to be_truthy
+    expect(current_path).to eq user_path(@user)
     expect(page).to have_selector 'h1', text: @user.name
     expect(page).to have_link nil, href: login_path, count: 0
     expect(page).to have_link nil, href: logout_path
@@ -34,24 +32,22 @@ RSpec.feature "UsersLogin",type: :feature do
   end
 
   it "login with valid information followe by logout" do
-    pending('pending expected true line ')
     visit login_path
-    fill_in "Email", with: "@suer.emial"
-    fill_in "Password", with: "password"
+    fill_in "Email", with: @user.email
+    fill_in "Password", with: @user.password
     click_button 'Log in'
-    expect(logged_in?).to be true
+    expect(logged_in?(@user)).to be_truthy
     expect(current_path).to eq user_path(@user)
-     expect(page).to have_selector 'h1', text: @user.name
-    follow_redirect!
+    expect(page).to have_selector 'h1', text: @user.name
     expect(page).to have_link nil, href: login_path, count: 0
     expect(page).to have_link nil, href: logout_path
     expect(page).to have_link nil, href: user_path(@user)
     click_link 'Log out'
-    expect(logged_in).to be_falsey
+    expect(logged_in?(@user)).to be_falsey
     expect(current_path).to eq root_path
     expect(page).to have_link nil, href: login_path
-    expect(page).to have_link nil, href: logout_path
-    expect(page).to have_link nil, href: user_path(@user)
+    expect(page).to have_no_link nil, href: logout_path
+    expect(page).to have_no_link nil, href: user_path(@user)
   end
 
   it "login with remembering" do

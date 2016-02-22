@@ -8,11 +8,10 @@ RSpec.feature "UsersEdit",type: :feature do
   it "unsuccessful edit" do
     sign_in_as(@user)
     visit edit_user_path(@user)
-    expect(page).to have_selector 'h1', text: 'Update your profile'
-    fill_in 'Name', with: ""
-    fill_in 'Email', with: "user@invalid"
-    fill_in 'Password', with: "foo"
-    fill_in 'Confirmation', with: "bar"
+    fill_in "Name", with: " "
+    fill_in "Email", with: "user@invalid"
+    fill_in "Password", with: "foo"
+    fill_in "Confirmation", with: "bar"
     click_button 'Save changes'
     expect(page).to have_selector 'h1', text: 'Update your profile'
   end
