@@ -19,16 +19,16 @@ RSpec.feature "MicropostsInterface", type: :feature do
     content = "This micropost really ties the room together"
     fill_in 'micropost_content', with: content
     expect { click_button 'Post' }.to change{ Micropost.count}.by(1)
-    expect(current_url).to eq root_url
+    expect(current_path).to eq root_path
     expect(page).to have_content content
 
     #投稿を削除する
     expect(page).to have_link 'delete'
-    first_micropost = @user.microposts.paginate(page: 1).first_micropost
-    expect { click_button  'delete', href: micropost_path(first_micropost) }.to change{ Micropost.count }.by(-1)
+    first_micropost = @user.microposts.paginate(page: 1).first
+    expect { click_link 'delete', href: micropost_path(first_micropost) }.to change{ Micropost.count }.by(-1)
 
     #違うユーザーのプロフィールにアクセスする
     visit user_path(create :lana_with_microposts)
-    expect(page).to have_link 'delete'
+    expect(page).to have_no_link 'delete'
   end
 end
