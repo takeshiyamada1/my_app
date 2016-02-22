@@ -7,7 +7,6 @@ RSpec.feature "PasswordRests",type: :feature do
   end
 
   it "password resets" do
-    pending("no method")
     visit new_password_reset_path
     expect(page).to have_selector 'h1', text: "Forgot password"
 
@@ -23,24 +22,26 @@ RSpec.feature "PasswordRests",type: :feature do
     expect(ActionMailer::Base.deliveries.size).to eq 1
     expect(@user.reload.reset_digest).to eq @user.reset_digest
     expect(page).to have_selector '.alert'
-    expect(current_url).to eq root_url
+    expect(current_path).to eq root_path
     #パスワード再設定用フォーム
-    user = assigns(:user)
+    mail = ActionMailer::Base.deliveries.last
+    reset_token = mail.body.encoded[/(?<=password_resets\/)[^\/]+/]
     
     #メールアドレスが無効
-    visit edit_password_reset_path(user.reset_token, email: '')
-    expect(current_url).to eq root_url
+    visit edit_password_reset_path(reset_token, email: '')
+    expect(current_path).to eq root_path
 
     #無効なユーザー
-    user.toggle!(:activeated)
-    visit edit_password_reset_path(user.reset_token,email: user.email)
-    expect(current_url).to eq root_url
-    user.toggle!(:activeated)
+    @user.toggle!(:activated)
+    visit edit_password_reset_path(reset_token,email: @user.email)
+    expect(current_path).to eq root_path
+    @user.toggle!(:activated)
 
-    #メールアドレスが正しく、トークンが無効
-    visit edit_password_reset_path(user.reset_token, email: user.email)
+    #メールアドレスが正しく、トークンが有効
+    visit edit_password_reset_path(reset_token, email: @user.email)
     expect(page).to have_selector 'h1', 'Reset password'
-    expect(page).to have_selector 'input[name=email][type=hidden]', user.email
+    hidden_email = find 'input[name=email][type=hidden]'
+    expect(hidden_email.value).to_not eq @user.email
 
     #無効なパスワードと確認
     fill_in "Password", with: "foobaz"
