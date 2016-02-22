@@ -40,12 +40,11 @@ RSpec.feature "PasswordRests",type: :feature do
     #メールアドレスが正しく、トークンが有効
     visit edit_password_reset_path(reset_token, email: @user.email)
     expect(page).to have_selector 'h1', 'Reset password'
-    hidden_email = find 'input[name=email][type=hidden]'
-    expect(hidden_email.value).to_not eq @user.email
+    expect(find('input[name=email]', visible: false)).to_not eq @user.email
 
     #無効なパスワードと確認
     fill_in "Password", with: "foobaz"
-    fill_in "Confirmaiton", with: "barquux"
+    fill_in "Confirmation", with: "barquux"
     click_button "Update password"
     expect(page).to have_selector 'div#error_explanation'
 
@@ -59,8 +58,8 @@ RSpec.feature "PasswordRests",type: :feature do
     fill_in "Password", with: "foobaz"
     fill_in "Confirmation", with: "foobaz"
     click_button "Update password"
-    expect(is_logged_in?).to be_truthy
+    expect(logged_in?(@user)).to be_truthy
     expect(page).to have_selector '.alert'
-    expect(current_paht).to eq user_path(@user)
+    expect(current_path).to eq user_path(@user)
   end
 end
