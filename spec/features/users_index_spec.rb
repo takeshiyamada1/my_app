@@ -19,7 +19,7 @@ RSpec.feature "UsersIndex",type: :feature do
         expect(page).to have_link 'delete', href: user_path(user)
       end
     end
-    expect { click_link 'delete',href: user_path(@non_admin) }.to change{ User.count }.by(-1)
+    expect { click_link 'delete', href: user_path(@non_admin) }.to change{ User.count }.by(-1)
   end
 
   it "index as non-admin" do
