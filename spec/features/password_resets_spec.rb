@@ -40,7 +40,7 @@ RSpec.feature "PasswordRests",type: :feature do
     #メールアドレスが正しく、トークンが有効
     visit edit_password_reset_path(reset_token, email: @user.email)
     expect(page).to have_selector 'h1', 'Reset password'
-    expect(find('input[name=email]', visible: false)).to_not eq @user.email
+    expect(find('input[name=email]', visible: false).value).to eq @user.email
 
     #無効なパスワードと確認
     fill_in "Password", with: "foobaz"
