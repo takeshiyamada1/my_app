@@ -17,7 +17,6 @@ RSpec.feature "UsersEdit",type: :feature do
   end
 
   it "successful edit with friendly forwarding" do
-    pending('expected: "Foo Bar" line35')
     visit edit_user_path(@user)
     sign_in_as(@user)
     expect(current_path).to eq edit_user_path(@user)
@@ -25,9 +24,9 @@ RSpec.feature "UsersEdit",type: :feature do
     email = "foo@bar.com"
     fill_in "Name", with: name
     fill_in "Email", with: email
-    fill_in "Password", with: ' '
-    fill_in "Confirmation", with: ' '
-    click_button 'Save change'
+    fill_in "Password", with: ''
+    fill_in "Confirmation", with: ''
+    click_button 'Save changes'
     expect(page).to have_selector '.alert'
     expect(current_path).to eq user_path(@user)
     @user.reload
