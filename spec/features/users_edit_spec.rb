@@ -24,8 +24,8 @@ RSpec.feature "UsersEdit",type: :feature do
     email = "foo@bar.com"
     fill_in "Name", with: name
     fill_in "Email", with: email
-    fill_in "Password", with: ' '
-    fill_in "Confirmation", with: ' '
+    fill_in "Password", with: ''
+    fill_in "Confirmation", with: ''
     click_button 'Save changes'
     expect(page).to have_selector '.alert'
     expect(current_path).to eq user_path(@user)
