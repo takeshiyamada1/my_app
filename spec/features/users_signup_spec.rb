@@ -26,20 +26,20 @@ RSpec.feature "UsersSignup",type: :feature do
     expect { click_button 'Create my account' }.to change{ User.count }.by(1)
     expect(ActionMailer::Base.deliveries.size).to eq 1
     user = User.last
-    expect(user.activated?).to_not be_truthy
+    expect(user.activated?).to be_falsey
     #有効かしていない状態でログインしてみる
     sign_in_as(user)
-    expect(logged_in?(user)).to_not be_truthy
+    expect(logged_in?(user)).to be_falsey
     #有効かトークンが不正な場合
     visit edit_account_activation_path("invalid token")
-    expect(logged_in?(user)).to_not be_truthy
+    expect(logged_in?(user)).to be_falsey
     mail = ActionMailer::Base.deliveries.last
     mail_body = mail.body.encoded
-    mail_body.split('\r\n').detect{|s|s.start_with?('http')}
+    mail_body.split('\r\n').detect { |s|s.start_with?('http') }
     activation_token = mail_body.split("/")[5]
     #トークンは正しいがメールアドレスが無効な場合
     visit edit_account_activation_path(activation_token, email: 'wrong')
-    expect(logged_in?(user)).to_not be_truthy
+    expect(logged_in?(user)).to be_falsey
     #有効かトークンが正しい場合
     visit edit_account_activation_path(activation_token, email: user.email)
     expect(user.reload.activated?).to be_truthy
