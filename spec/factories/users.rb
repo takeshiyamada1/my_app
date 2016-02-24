@@ -1,5 +1,4 @@
 FactoryGirl.define do
-
   factory :user do
     sequence :name do |n|
       "User #{n}"
@@ -71,5 +70,3 @@ FactoryGirl.define do
     end
   end
 end
-
-    

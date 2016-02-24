@@ -5,25 +5,25 @@ FactoryGirl.define do
     association :user, factory: :tsubasa
 
     factory :orange do
-      content "I just ate an orange"
+      content 'I just ate an orange'
       created_at 10.minutes.ago
       association :user, factory: :tsubasa
     end
 
     factory :tau_mainfesto do
-      content "Check out the @tauday site by @mhartl: http://tauday.com"
+      content 'Check out the @tauday site by @mhartl: http://tauday.com'
       created_at 3.years.ago
       association :user, factory: :tsubasa
     end
 
     factory :cat_video do
-      content "Sad cats are sad: http://youtu.be/PKffm2uI4dk"
+      content 'Sad cats are sad: http://youtu.be/PKffm2uI4dk'
       created_at 2.hours.ago
       association :user, factory: :tsubasa
     end
 
     factory :most_recent do
-      content "writing a short test"
+      content 'writing a short test'
       created_at Time.zone.now
       association :user, factory: :tsubasa
     end
@@ -35,7 +35,7 @@ FactoryGirl.define do
     end
 
     factory :zone do
-      conten "Danger zone!"
+      conten 'Danger zone!'
       created_at 3.days.ago
       association :user, factory: :sayami
     end

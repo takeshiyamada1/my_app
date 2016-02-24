@@ -1,5 +1,4 @@
 FactoryGirl.define do
-  
   factory :relationship do
     factory :one do
       association :follower, factory: :tsubasa
