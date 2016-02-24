@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-RSpec.feature "UsersProfile",type: :feature do
+RSpec.feature 'UsersProfile', type: :feature do
   include ApplicationHelper
 
   before do
     @user = create :tsubasa
   end
 
-  it "profile display" do
+  it 'profile display' do
     visit user_path(@user)
     expect(page).to have_selector 'h1', text: @user.name
     expect(page).to have_title full_title(@user.name)

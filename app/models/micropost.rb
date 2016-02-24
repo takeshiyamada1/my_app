@@ -8,10 +8,10 @@ class Micropost < ActiveRecord::Base
 
   private
 
-    # アップロード画像のサイズを検証する
-    def picture_size
-      if picture.size > 5.megabytes
-        errors.add(:picture, "should be less than 5MB")
-      end
+  # アップロード画像のサイズを検証する
+  def picture_size
+    if picture.size > 5.megabytes
+      errors.add(:picture, 'should be less than 5MB')
     end
+  end
 end
