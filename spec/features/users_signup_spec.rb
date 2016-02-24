@@ -34,7 +34,9 @@ RSpec.feature "UsersSignup",type: :feature do
     visit edit_account_activation_path("invalid token")
     expect(logged_in?(user)).to_not be_truthy
     mail = ActionMailer::Base.deliveries.last
-    activation_token = mail.body.encoded[/(?<=account_activations\/)[^\/]+/]
+    mail_body = mail.body.encoded
+    mail_body.split('\r\n').detect{|s|s.start_with?('http')}
+    activation_token = mail_body.split("/")[5]
     #トークンは正しいがメールアドレスが無効な場合
     visit edit_account_activation_path(activation_token, email: 'wrong')
     expect(logged_in?(user)).to_not be_truthy
