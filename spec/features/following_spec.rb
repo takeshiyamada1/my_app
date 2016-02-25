@@ -30,9 +30,11 @@ RSpec.feature 'Following', type: :feature do
   end
 
   it 'should follow a user the standard way' do
+    before_count = @user.following.count
     visit user_path(@other)
     click_button 'Follow'
-    expect { expect(page).to have_button 'Unfollow' }.to change { @user.following.count }.by(1)
+    expect(page).to have_button 'Unfollow'
+    expect(before_count).to eq(before_count + 1)
   end
 
   it 'should follow a user with Ajax' do
