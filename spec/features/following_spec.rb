@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Following', type: :feature do
   before do
     @user = create :tsubasa
-    @other = create :lana
+    @other = create :sayami
     sign_in_as(@user)
     create :one
     create :two
@@ -30,9 +30,8 @@ RSpec.feature 'Following', type: :feature do
   end
 
   it 'should follow a user the standard way' do
-    pending('error')
     visit user_path(@other)
-    expect { click_on 'Follow' }.to change { @user.following.count }.by(1)
+    expect { click_button 'Follow' }.to change { @user.following.count }.by(1)
   end
 
   it 'should follow a user with Ajax' do
