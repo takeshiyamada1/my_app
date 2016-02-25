@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Following', type: :feature do
   before do
     @user = create :tsubasa
-    @other = create :lana
+    @other = create :sayami
     sign_in_as(@user)
     create :one
     create :two
@@ -41,10 +41,12 @@ RSpec.feature 'Following', type: :feature do
   end
 
   it 'should unfollow a user the standard way' do
-    pending("Counldn't find User")
     @user.follow(@other)
+    before_count = @user.following.count
     visit user_path(@other)
-    expect { click_button 'Unfollow' }.to change { @user.following.count }.by(-1)
+    click_button 'Unfollow'
+    expect(page).to have_button 'Follow'
+    expect(@user.following.count).to eq(before_count - 1)
   end
 
   it 'should unfollow a user with Ajax' do
