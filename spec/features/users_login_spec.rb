@@ -50,9 +50,8 @@ RSpec.feature 'UsersLogin', type: :feature do
   end
 
   it 'login with remembering' do
-    pending('no method cookies')
     sign_in_as(@user, remember_me: '1')
-    expect(cookies['remember_token']).to_not be_nil
+    expect(page.driver.cookies['remember_token']).to_not be_nil
   end
 
   it 'login without remembering' do
