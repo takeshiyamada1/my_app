@@ -30,8 +30,6 @@ RSpec.describe RelationshipsController, type: :controller do
     end
 
     context 'unfollow with ajax' do
-      let(:user) { create :tsubasa }
-      let(:other) { create :sayami }
       let(:relationship) { user.active_relationships.find_by(followed_id: other.id) }
       before do
         user.follow(other)
