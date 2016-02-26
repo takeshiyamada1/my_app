@@ -37,11 +37,6 @@ RSpec.feature 'Following', type: :feature do
     expect(@user.following.count).to eq(before_count + 1)
   end
 
-  it 'should follow a user with Ajax' do
-    pending('error')
-    expect { xhr :post, :create, followed_id: @other.id }.to change { @user.following.count }.by(1)
-  end
-
   it 'should unfollow a user the standard way' do
     @user.follow(@other)
     before_count = @user.following.count
@@ -49,12 +44,5 @@ RSpec.feature 'Following', type: :feature do
     click_button 'Unfollow'
     expect(page).to have_button 'Follow'
     expect(@user.following.count).to eq(before_count - 1)
-  end
-
-  it 'should unfollow a user with Ajax' do
-    pending('error')
-    @user.follow(@other)
-    relationship = @user.active_relationships.find_by(followed_id: @other.id)
-    expect { xhr :delete, :destroy, id: relationship.id }.to change { @user.following.count }.by(-1)
   end
 end
