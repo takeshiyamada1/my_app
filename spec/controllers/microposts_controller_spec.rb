@@ -3,9 +3,7 @@ require 'rails_helper'
 RSpec.describe MicropostsController, type: :controller do
 
   context 'create and destroy when not logged in' do
-    before do
-      @micropost = create :orange
-    end
+    let!(:micropost) { create :orange }
 
     it 'should redirect create when not logged in' do
       expect { post :create, micropost: { content: 'Lorem ipsum' } }.to_not change { Micropost.count }
@@ -13,21 +11,21 @@ RSpec.describe MicropostsController, type: :controller do
     end
 
     it 'should redirect destroy when not logged in' do
-      expect { delete :destroy, id: @micropost }.to_not change { Micropost.count }
+      expect { delete :destroy, id: micropost }.to_not change { Micropost.count }
       expect(response).to redirect_to login_url
     end
   end
 
   context 'wrong micropost destroy' do
+    let(:user) { build :tsubasa }
+    let!(:ants) { create :ants }
+    let!(:micropost) { create :orange }
     before do
-      @micropost = create :orange
-      user = build :tsubasa
       log_in_as(user)
-      @ants = create :ants
     end
 
     it 'should redirect destroy for wrong micropost' do
-      expect { delete :destroy, id: @ants }.to_not change { Micropost.count }
+      expect { delete :destroy, id: ants }.to_not change { Micropost.count }
       expect(response).to redirect_to root_url
     end
   end
