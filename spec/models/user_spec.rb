@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe User, type: :models do
   context 'user' do
-    let(:user) { User.new(name: 'Example User', email: 'user@example.com', password: 'password', password_confirmation: 'password') }
+    let(:name) { 'Example User' }
+    let(:user) { User.new(name: name, email: 'user@example.com', password: 'password', password_confirmation: 'password') }
 
     it 'should be valid' do
       expect(user).to be_valid
@@ -10,18 +11,14 @@ RSpec.describe User, type: :models do
 
     context 'name' do
       context 'present' do
-        before do
-          user.name = ''
-        end
+        let(:name) { '' }
         it 'name should be present' do
           expect(user).to be_invalid
         end
       end
 
       context 'too long' do
-        before do
-          user.name = 'a' * 51
-        end
+        let(:name) { 'a' * 51 }
         it 'name should not be too long' do
           expect(user).to be_invalid
         end
