@@ -26,7 +26,7 @@ RSpec.describe Micropost, type: :models do
         expect(micropost).to_not be_valid
       end
     end
-    
+
     context 'content most 140 characters' do
       before do
         micropost.content = 'a' * 141

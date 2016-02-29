@@ -9,7 +9,7 @@ RSpec.feature 'MicropostsInterface', type: :feature do
     end
     it 'micropost interface' do
       expect(page).to have_selector 'div.pagination'
-       # 無効な送信
+      # 無効な送信
       fill_in 'micropost_content', with: ' '
       expect { click_button 'Post' }.to_not change { Micropost.count }
       expect(page).to have_selector 'div#error_explanation'
@@ -27,6 +27,6 @@ RSpec.feature 'MicropostsInterface', type: :feature do
       another_user = create :lana_with_microposts
       visit user_path(another_user)
       expect(page).to have_no_link 'delete'
-    end 
+    end
   end
 end
