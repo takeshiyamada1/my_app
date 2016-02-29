@@ -66,6 +66,7 @@ RSpec.describe User, type: :models do
     end
 
     context 'pssowrd present' do
+      let(:password) { 'a' * 5 }
       let(:password_confirmation) { 'a' * 5 }
       it 'password should be present (nonblank)' do
         expect(user).to be_invalid
