@@ -3,7 +3,10 @@ require 'rails_helper'
 RSpec.describe User, type: :models do
   context 'user' do
     let(:name) { 'Example User' }
-    let(:user) { User.new(name: name, email: 'user@example.com', password: 'password', password_confirmation: 'password') }
+    let(:email) { 'user@example.com' }
+    let(:password) { 'password' }
+    let(:password_confirmation) { 'password' }
+    let(:user) { User.new(name: name, email: email, password: password, password_confirmation: password_confirmation) }
 
     it 'should be valid' do
       expect(user).to be_valid
@@ -27,18 +30,14 @@ RSpec.describe User, type: :models do
 
     context 'email' do
       context 'present' do
-        before do
-          user.email = ''
-        end
+        let(:email) { '' }
         it 'email should be present' do
           expect(user).to be_invalid
         end
       end
 
       context 'too long' do
-        before do
-          user.email = 'a' * 244 + '@example.com'
-        end
+        let(:email) { 'a' * 244 + '@example.com' }
         it 'email should not be too long' do
           expect(user).to be_invalid
         end
@@ -67,9 +66,7 @@ RSpec.describe User, type: :models do
     end
 
     context 'pssowrd present' do
-      before do
-        user.password = user.password_confirmation = 'a' * 5
-      end
+      let(:password_confirmation) { 'a' * 5 }
       it 'password should be present (nonblank)' do
         expect(user).to be_invalid
       end
@@ -106,7 +103,6 @@ RSpec.describe User, type: :models do
       let(:tsubasa) { create :tsubasa }
       let(:sayami) { create :sayami }
       let(:lana) { create :lana }
-
       it 'feed should have the right posts' do
         sayami.microposts.each do |post_following|
           expect(tsubasa.feed.include?(post_following)).to be_truthy
