@@ -14,7 +14,7 @@ RSpec.describe User, type: :models do
           user.name = ''
         end
         it 'name should be present' do
-          expect(user).to_not be_valid
+          expect(user).to be_invalid
         end
       end
 
@@ -23,7 +23,7 @@ RSpec.describe User, type: :models do
           user.name = 'a' * 51
         end
         it 'name should not be too long' do
-          expect(user).to_not be_valid
+          expect(user).to be_invalid
         end
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe User, type: :models do
           user.email = ''
         end
         it 'email should be present' do
-          expect(user).to_not be_valid
+          expect(user).to be_invalid
         end
       end
 
@@ -43,7 +43,7 @@ RSpec.describe User, type: :models do
           user.email = 'a' * 244 + '@example.com'
         end
         it 'email should not be too long' do
-          expect(user).to_not be_valid
+          expect(user).to be_invalid
         end
       end
 
@@ -52,7 +52,7 @@ RSpec.describe User, type: :models do
         it 'email validation should accept valid addresses' do
           valid_addresses.each do |valid_address|
             user.email = valid_address
-            expect(user).to be_valid, '#{valid_address.inspect} should be valid'
+            expect(user).to be_valid, "#{valid_address.inspect} should be valid"
           end
         end
       end
@@ -64,7 +64,7 @@ RSpec.describe User, type: :models do
           user.save
         end
         it 'email addresses should be unique' do
-          expect(duplicate_user).to_not be_valid
+          expect(duplicate_user).to be_invalid
         end
       end
     end
@@ -74,7 +74,7 @@ RSpec.describe User, type: :models do
         user.password = user.password_confirmation = 'a' * 5
       end
       it 'password should be present (nonblank)' do
-        expect(user).to_not be_valid
+        expect(user).to be_invalid
       end
     end
 
@@ -121,7 +121,7 @@ RSpec.describe User, type: :models do
 
         # フォローしていないユーザーの投稿を確認
         lana.microposts.each do |post_unfollowed|
-          expect(tsubasa.feed.include?(post_unfollowed)).to_not be_truthy
+          expect(tsubasa.feed.include?(post_unfollowed)).to be_falsey
         end
       end
     end
