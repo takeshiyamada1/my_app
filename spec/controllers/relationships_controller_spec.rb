@@ -29,7 +29,7 @@ RSpec.describe RelationshipsController, type: :controller do
       expect { xhr :post, :create, followed_id: other.id }.to change { user.following.count }.by(1)
     end
 
-    context 'unfollow with ajax' do
+    context 'unfollow withr ajax' do
       let(:relationship) { user.active_relationships.find_by(followed_id: other.id) }
       before do
         user.follow(other)
