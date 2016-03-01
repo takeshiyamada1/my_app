@@ -54,8 +54,8 @@ RSpec.feature 'Following', type: :feature do
     context 'unnfolow user' do
       let(:before_count) { user.following.count }
       before do
-        before_count
         user.follow(other)
+        before_count
         visit user_path(other)
       end
       it 'should unfollow a user the standard way' do
