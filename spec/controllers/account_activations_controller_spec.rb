@@ -39,7 +39,6 @@ RSpec.describe AccountActivationsController, type: :controller do
     it 'should edit when account active' do
       expect(response).to redirect_to user_path(user)
       expect(flash).to_not be_empty
-      binding.pry
       expect(user.reload.activated_at).to be_present
       expect(user.reload.activated).to be_truthy
       expect(logged_in?).to be_truthy
