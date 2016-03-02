@@ -11,12 +11,11 @@ RSpec.describe AccountActivationsController, type: :controller do
   end
   context 'not account active' do
     context 'when not account active' do
+      let(:user) { create :tsubasa }
       before do
-        log_in_as(user)
+        get :edit, id: user.activation_token, email: user.email
       end
-      it 'should edit when not account active' do
-        expect(logged_in?).to be_falsey
-      end
+      it_behaves_like 'not account'
     end
     context 'invalid token' do
       before do
