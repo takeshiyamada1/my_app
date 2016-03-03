@@ -12,7 +12,6 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   context 'get create' do
-
     context 'invalid information' do
       before do
         get :create, session: { email: user.email }
@@ -36,11 +35,23 @@ RSpec.describe SessionsController, type: :controller do
           expect(logged_in?).to be_falsey
         end
       end
+      context 'remember_token on' do
+        it 'create should when user login rememeber_me on' do
+          expect(response).to redirect_to user_path(user)
+          expect(logged_in?).to be_truthy
+          expect(cookies['remember_token']).to be_present
+        end
+      end
 
-      it 'create should when user login' do
-        expect(response).to redirect_to user_path(user)
-        expect(logged_in?).to be_truthy
-        expect(cookies['remember_token']).to be_present
+      context 'remember_token off' do
+        before do
+          get :create, session: { email: user.email, password:user.password, remember_me: '0'}
+        end
+        it 'create should when user login remember_me off' do
+          expect(response).to redirect_to user_path(user)
+          expect(logged_in?).to be_truthy
+          expect(cookies['remember_token']).to be_blank
+        end
       end
     end
   end
