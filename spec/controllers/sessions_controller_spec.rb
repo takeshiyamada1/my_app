@@ -4,17 +4,17 @@ RSpec.describe SessionsController, type: :controller do
   let(:user) { create :tsubasa }
   context 'get new' do
     before do
-      get :new
+      post :new
     end
-    it 'should get new' do
+    it 'should post new' do
       expect(response).to have_http_status :success
     end
   end
 
-  context 'get create' do
+  context 'post create' do
     context 'invalid information' do
       before do
-        get :create, session: { email: user.email }
+        post :create, session: { email: user.email }
       end
       it 'create should when not user login' do
         expect(response).to render_template(:new)
@@ -23,9 +23,9 @@ RSpec.describe SessionsController, type: :controller do
       end
     end
 
-    context 'get create valid information' do
+    context 'post create valid information' do
       before do
-        get :create, session: { email: user.email, password:user.password, remember_me: '1'}
+        post :create, session: { email: user.email, password:user.password, remember_me: '1'}
       end
       context 'invalid account activations' do
         let(:user){ create :tsubasa, activated: false, activated_at: nil }
@@ -42,16 +42,15 @@ RSpec.describe SessionsController, type: :controller do
           expect(cookies['remember_token']).to be_present
         end
       end
-
-      context 'remember_token off' do
-        before do
-          get :create, session: { email: user.email, password:user.password, remember_me: '0'}
-        end
-        it 'create should when user login remember_me off' do
-          expect(response).to redirect_to user_path(user)
-          expect(logged_in?).to be_truthy
-          expect(cookies['remember_token']).to be_blank
-        end
+    end
+    context 'remember_token off' do
+      before do
+        post :create, session: { email: user.email, password:user.password, remember_me: '0'}
+      end
+      it 'create should when user login remember_me off' do
+        expect(response).to redirect_to user_path(user)
+        expect(logged_in?).to be_truthy
+        expect(cookies['remember_token']).to be_blank
       end
     end
   end
