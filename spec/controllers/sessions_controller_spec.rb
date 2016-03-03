@@ -54,4 +54,14 @@ RSpec.describe SessionsController, type: :controller do
       end
     end
   end
+
+  context 'delete destroy' do
+    before do
+      delete :destroy
+    end
+    it 'destroy should when user logout' do
+      expect(response).to redirect_to root_url
+      expect(logged_in?).to be_falsey
+    end
+  end
 end
