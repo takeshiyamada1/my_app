@@ -17,6 +17,15 @@ RSpec.describe UsersController, type: :controller do
     it_behaves_like 'not logged in'
   end
 
+  context 'get　show' do
+    before do
+      get :show, id: user
+    end
+    it 'should get show' do
+      expect(response).to have_http_status :success
+    end
+  end
+
   context 'get new' do
     before do
       get :new
@@ -25,6 +34,8 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to have_http_status :success
     end
   end
+
+  context ''
 
   context 'edit and update when not logged in' do
     context 'get edit id of user' do
