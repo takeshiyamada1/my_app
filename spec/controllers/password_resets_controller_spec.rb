@@ -10,6 +10,7 @@ RSpec.describe PasswordResetsController, type: :controller do
       expect(response).to redirect_to root_url
       expect(flash).to be_present
       expect(user.reload.reset_digest).to be_present
+      expect(ActionMailer::Base.deliveries.size).to eq 1
     end
   end
   context 'get create not password reset' do
