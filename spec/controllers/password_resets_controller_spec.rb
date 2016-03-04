@@ -32,4 +32,14 @@ RSpec.describe PasswordResetsController, type: :controller do
       expect(flash).to be_present
     end
   end
+
+  context 'get edit' do
+    before do
+      user.create_reset_digest
+      get :edit, id: user.reset_token, email: user.email
+    end
+    it 'edit check status code' do
+      expect(response).to have_http_status :success
+    end
+  end
 end
