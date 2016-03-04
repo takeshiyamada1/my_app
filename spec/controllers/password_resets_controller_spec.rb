@@ -4,6 +4,7 @@ RSpec.describe PasswordResetsController, type: :controller do
   let(:user) { create :tsubasa }
   context 'get create password reset' do
     before do
+      ActionMailer::Base.deliveries.clear
       post :create, password_reset: { email: user.email }
     end
     it 'create shoule when user password reset' do
