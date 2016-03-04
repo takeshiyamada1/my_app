@@ -9,8 +9,7 @@ RSpec.describe PasswordResetsController, type: :controller do
     it 'create shoule when user password reset' do
       expect(response).to redirect_to root_url
       expect(flash).to be_present
-      expect(user.create_reset_digest).to be_present
-      expect(user.send_password_reset_email).to be_present
+      expect(user.reload.reset_digest).to be_present
     end
   end
   context 'get create not password reset' do
