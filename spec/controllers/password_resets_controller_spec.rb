@@ -2,18 +2,12 @@ require 'rails_helper'
 
 RSpec.describe PasswordResetsController, type: :controller do
   let(:user) { create :tsubasa }
-  shared_examples_for 'get action' do
+  context 'get new' do
     before do
-      get action
+      get :new
     end
     it 'get action' do
       expect(response).to have_http_status :success
-    end
-  end
-
-  context 'get new' do
-    it_behaves_like 'get action' do
-      let(:action) { :new }
     end
   end
 
