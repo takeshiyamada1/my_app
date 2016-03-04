@@ -26,6 +26,45 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  context 'create user' do
+    context 'create valid user' do
+      before do
+        ActionMailer::Base.deliveries.clear
+        post :create, user: { name: 'User Example', email: 'user@example.com', password: 'password', password_confirmation: 'password' }
+      end
+      it 'cleat new user' do
+        expect(response).to redirect_to root_url
+        expect(flash).to be_present
+        expect(ActionMailer::Base.deliveries.size).to eq(1)
+      end
+    end
+    context 'create invalid user' do
+      shared_examples_for 'invalid user' do
+        before do
+          post :create, user: { name: 'User Example', email: email, password: password, password_confirmation: confirmation }
+        end
+        it 'create not new user' do
+          expect(response).to render_template(:new)
+        end
+      end
+      context 'invalid email' do
+        it_behaves_like 'invalid user' do
+          let(:email) { 'user@example' }
+          let(:password) { 'password' }
+          let(:confirmation) { 'password' }
+        end
+      end
+      context 'invalid password' do
+        it_behaves_like 'invalid user' do
+          let(:email) { 'user@example.com' }
+          let(:password) { 'pass' }
+          let(:confirmation) { 'word' }
+        end
+      end
+    end
+  end
+
+
   context 'edit and update when not logged in' do
     context 'get edit id of user' do
       before do
