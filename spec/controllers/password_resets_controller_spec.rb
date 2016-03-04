@@ -2,6 +2,15 @@ require 'rails_helper'
 
 RSpec.describe PasswordResetsController, type: :controller do
   let(:user) { create :tsubasa }
+  context 'get new' do
+    before do
+      get :new
+    end
+    it 'get action' do
+      expect(response).to have_http_status :success
+    end
+  end
+
   context 'get create password reset' do
     before do
       ActionMailer::Base.deliveries.clear
