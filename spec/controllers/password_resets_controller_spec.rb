@@ -42,4 +42,40 @@ RSpec.describe PasswordResetsController, type: :controller do
       expect(response).to have_http_status :success
     end
   end
+
+  context 'update user password' do
+    before do
+      user.create_reset_digest
+      patch :update, id: user.reset_token, email: user.email, user: { password: 'foobaz', password_confirmation: 'foobaz' }
+    end
+    it 'update should when user password preset' do
+      expect(response).to redirect_to user_url(user)
+      expect(flash).to be_present
+      expect(user.reload.authenticate('foobaz')).to be_truthy
+      expect(logged_in?).to be_truthy
+    end
+  end
+
+  shared_examples_for 'invalid reset' do
+    before do
+      user.create_reset_digest
+      patch :update, id: user.reset_token, email: user.email, user: { password: password, password_confirmation: confirmation }
+    end
+    it 'update should not user password reset' do
+      expect(response).to render_template(:edit)
+      expect(user.errors).to be_truthy
+    end
+  end
+  context 'update missed by without password' do
+    it_behaves_like 'invalid reset' do
+      let(:password) { '' }
+      let(:confirmation) { '' }
+    end
+  end
+  context 'update missed by invalid password' do
+    it_behaves_like 'invalid reset' do
+      let(:password) { 'foobaz' }
+      let(:confirmation) { 'barfoo' }
+    end
+  end
 end
