@@ -30,9 +30,9 @@ RSpec.describe UsersController, type: :controller do
     context 'create valid user' do
       before do
         ActionMailer::Base.deliveries.clear
-        post :create, user: { name: 'User Example', email: 'user@example.com', password: 'password', password_confirmation: 'password' }
       end
       it 'cleat new user' do
+        expect { post :create, user: { name: 'User Example', email: 'user@example.com', password: 'password', password_confirmation: 'password' } }.to change { User.count }.by(1)
         expect(response).to redirect_to root_url
         expect(flash).to be_present
         expect(ActionMailer::Base.deliveries.size).to eq(1)
@@ -58,7 +58,22 @@ RSpec.describe UsersController, type: :controller do
         it_behaves_like 'invalid user' do
           let(:email) { 'user@example.com' }
           let(:password) { 'pass' }
-          let(:confirmation) { 'word' }
+          let(:confirmation) { 'pass' }
+        end
+      end
+      context 'same params email' do
+        let(:params) { User.find_by(email: 'tsubasa@example.com') }
+        it_behaves_like 'invalid user' do
+          let(:email) { params }
+          let(:password) { 'foobar' }
+          let(:confirmation) { 'foobar' }
+        end
+      end
+      context 'invalid confirmation' do
+        it_behaves_like 'invalid user' do
+          let(:email) { 'user@example' }
+          let(:password) { 'password' }
+          let(:confirmation) { 'foobar' }
         end
       end
     end
