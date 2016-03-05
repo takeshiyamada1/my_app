@@ -35,8 +35,6 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  context ''
-
   context 'edit and update when not logged in' do
     context 'get edit id of user' do
       before do
