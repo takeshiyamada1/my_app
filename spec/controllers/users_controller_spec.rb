@@ -29,7 +29,9 @@ RSpec.describe UsersController, type: :controller do
     before do
       get :show, id: 'invalid'
     end
-    it_behaves_like 'not logged in'
+    it 'get should not show' do
+      expect(response).to render_template 'errors/error_404'
+    end
   end
 
   context 'get new' do
