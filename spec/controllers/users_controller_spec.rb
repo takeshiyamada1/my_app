@@ -25,6 +25,14 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to have_http_status :success
     end
   end
+  context 'not get show' do
+    before do
+      get :show, id: 'invalid'
+    end
+    it 'get should not show' do
+      expect(response).to render_template 'errors/error_404'
+    end
+  end
 
   context 'get new' do
     before do
