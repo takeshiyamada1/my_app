@@ -25,6 +25,12 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to have_http_status :success
     end
   end
+  context 'not get show' do
+    before do
+      get :show, id: 'invalid'
+    end
+    it_behaves_like 'not logged in'
+  end
 
   context 'get new' do
     before do
