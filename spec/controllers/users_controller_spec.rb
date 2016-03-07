@@ -16,6 +16,16 @@ RSpec.describe UsersController, type: :controller do
     end
     it_behaves_like 'not logged in'
   end
+  context 'index when logged in' do
+    before do
+      create_list :user, 30
+      log_in_as(user)
+      get :index
+    end
+    it 'index should redirect when logged in' do
+      expect(response).to have_http_status :success
+    end
+  end
 
   context 'get　show' do
     before do
