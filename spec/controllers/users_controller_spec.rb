@@ -35,6 +35,64 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  context 'create user' do
+    context 'create valid user' do
+      #let(:user) { User.find_by(email: 'tun@example.com') }
+      before do
+        ActionMailer::Base.deliveries.clear
+      end
+      it 'cleat new user' do
+        expect { post :create, user: { name: 'User Example', email: 'tun@example.com', password: 'password', password_confirmation: 'password' } }.to change { User.count }.by(1)
+        expect(response).to redirect_to root_url
+        expect(flash).to be_present
+        expect(ActionMailer::Base.deliveries.size).to eq(1)
+        user = User.find_by(email: 'tun@example.com')
+        expect(user.email).to eq('tun@example.com')
+        expect(user.authenticate('password')).to be_truthy
+      end
+    end
+    context 'create invalid user' do
+      shared_examples_for 'invalid user' do
+        before do
+          post :create, user: { name: 'User Example', email: email, password: password, password_confirmation: confirmation }
+        end
+        it 'create not new user' do
+          expect(response).to render_template(:new)
+        end
+      end
+      context 'invalid email' do
+        it_behaves_like 'invalid user' do
+          let(:email) { 'user@example' }
+          let(:password) { 'password' }
+          let(:confirmation) { 'password' }
+        end
+      end
+      context 'invalid password' do
+        it_behaves_like 'invalid user' do
+          let(:email) { 'user@example.com' }
+          let(:password) { 'pass' }
+          let(:confirmation) { 'pass' }
+        end
+      end
+      context 'same params email' do
+        let(:params) { User.find_by(email: 'tsubasa@example.com') }
+        it_behaves_like 'invalid user' do
+          let(:email) { params }
+          let(:password) { 'foobar' }
+          let(:confirmation) { 'foobar' }
+        end
+      end
+      context 'invalid confirmation' do
+        it_behaves_like 'invalid user' do
+          let(:email) { 'user@example' }
+          let(:password) { 'password' }
+          let(:confirmation) { 'foobar' }
+        end
+      end
+    end
+  end
+
+
   context 'edit and update when not logged in' do
     context 'get edit id of user' do
       before do
