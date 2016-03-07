@@ -28,14 +28,17 @@ RSpec.describe UsersController, type: :controller do
 
   context 'create user' do
     context 'create valid user' do
+      let(:user_params) { User.find_by(email: 'tun@example.com') }
       before do
         ActionMailer::Base.deliveries.clear
       end
       it 'cleat new user' do
-        expect { post :create, user: { name: 'User Example', email: 'user@example.com', password: 'password', password_confirmation: 'password' } }.to change { User.count }.by(1)
+        expect { post :create, user: { name: 'User Example', email: 'tun@example.com', password: 'password', password_confirmation: 'password' } }.to change { User.count }.by(1)
         expect(response).to redirect_to root_url
         expect(flash).to be_present
         expect(ActionMailer::Base.deliveries.size).to eq(1)
+        expect(user_params.email).to eq('tun@example.com')
+        expect(user_params.authenticate('password')).to be_truthy
       end
     end
     context 'create invalid user' do
