@@ -177,5 +177,15 @@ RSpec.describe UsersController, type: :controller do
       end
       it_behaves_like 'not logged in'
     end
+
+    context 'followers page' do
+      before do
+        log_in_as(user)
+        get :followers, id: user
+      end
+      it 'should follwoers page' do
+        expect(response).to render_template 'show_follow'
+      end
+    end
   end
 end
