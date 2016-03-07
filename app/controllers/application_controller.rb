@@ -7,10 +7,6 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::RoutingError,   with: :render_404
   end
 
-  def routing_error
-    raise ActionController::RoutingError.new(params[:path])
-  end
-
   def render_404(e = nil)
     logger.info "Rendering 404 with exception: #{e.message}" if e
 
