@@ -121,10 +121,12 @@ RSpec.describe User, type: :models do
       before do
         user.save
         user.activate
+        Timecop.freeze(2016,3,8,0,0,0)
       end
       it 'user is activate' do
-        expect(user.activated).to be_truthy
+        expect(user.activated?).to be_truthy
         expect(user.activated_at).to be_present
+        expect(Time.zone.now).to eq Time.new(2016,3,8,0,0,0)
       end
     end
   end
