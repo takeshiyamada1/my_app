@@ -103,6 +103,17 @@ RSpec.describe User, type: :models do
   end
 
   describe '#forget' do
+    context 'when forget user' do
+      before do
+        user.save
+        user.remember
+      end
+      it 'user is forget' do
+        expect(user.remember_digest).to be_present
+        user.forget
+        expect(user.remember_digest).to be_nil
+      end
+    end
   end
 
   describe '#activate' do
