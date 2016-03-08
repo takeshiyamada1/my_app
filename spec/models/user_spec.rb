@@ -117,6 +117,16 @@ RSpec.describe User, type: :models do
   end
 
   describe '#activate' do
+    context 'when activate user' do
+      before do
+        user.save
+        user.activate
+      end
+      it 'user is activate' do
+        expect(user.activated).to be_truthy
+        expect(user.activated_at).to be_present
+      end
+    end
   end
 
   describe '#send_activation_email' do
