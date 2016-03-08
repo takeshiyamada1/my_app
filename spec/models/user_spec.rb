@@ -91,6 +91,7 @@ RSpec.describe User, type: :models do
       end
       it 'db is remember user' do
         expect(user.remember_digest).to be_present
+        expect(user.remember_token).to be_present
       end
     end
   end
