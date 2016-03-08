@@ -84,6 +84,16 @@ RSpec.describe User, type: :models do
   end
 
   describe '#remember' do
+    context 'when user remember' do
+      let(:user) { create(:user) }
+      before do
+        user.remember
+      end
+      it 'db is remember user' do
+        expect(user.remember_digest).to be_present
+        expect(user.remember_token).to be_present
+      end
+    end
   end
 
   describe '#authenticated' do
