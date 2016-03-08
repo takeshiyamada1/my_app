@@ -84,6 +84,15 @@ RSpec.describe User, type: :models do
   end
 
   describe '#remember' do
+    context 'when user remember' do
+      before do
+        user.save
+      end
+      it 'db is remember user' do
+        expect(user.reload.remember).to be_truthy
+        expect(user.reload.remember_digest).to be_present
+      end
+    end
   end
 
   describe '#authenticated' do
