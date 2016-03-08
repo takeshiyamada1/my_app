@@ -52,7 +52,7 @@ RSpec.describe MicropostsController, type: :controller do
 
         context 'destroy mictropost redirect referrer' do
           before do
-            controller.request.receive(:referrer).and_return('/test')
+            allow(controller.request).to receive(:referrer).and_return('/test')
           end
           it_behaves_like 'should destroy micropost' do
             let(:routes) { '/test' }
