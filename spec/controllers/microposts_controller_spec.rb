@@ -1,18 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe MicropostsController, type: :controller do
-  let(:micropost) { create :orange }
   let(:user) { create :tsubasa }
   context 'create action' do
-    before do
-      micropost
-    end
     context 'create micropost' do
       before do
         log_in_as(user)
       end
       it 'should redirec create micropost' do
-        expect { post :create, micropost: { content: 'micropost create', id: user } }.to change { Micropost.count}.by(1)
+        expect { post :create, micropost: { content: 'micropost create' } }.to change { Micropost.count}.by(1)
         expect(flash).to be_present
         expect(response).to redirect_to root_url
       end
@@ -28,28 +24,32 @@ RSpec.describe MicropostsController, type: :controller do
         log_in_as(user)
       end
       it 'should no create micropost' do
-        expect { post :create, micropost: { content: 'a'*141, id: user } }.to_not change  { Micropost.count }
+        expect { post :create, micropost: { content: 'a'*141 } }.to_not change  { Micropost.count }
         expect(response).to render_template 'static_pages/home'
       end
     end
   end
 
   context 'destroy action' do
+    let(:user_microposts) { create :tsubasa_with_microposts }
     context 'destroy micropost' do
-      let(:user) { create :tsubasa_with_microposts }
       before do
         log_in_as(user)
+        user_microposts
       end
       it 'should redirect destroy for wrong micropost' do
-        expect { delete :destroy, id: user }.to change { Micropost.count }.by(-1)
+        expect { delete :destroy, id: user_microposts }.to change { Micropost.count }.by(-1)
         expect(response).to redirect_to root_url
         expect(flash).to be_present
       end
     end
 
     context 'when not logged in' do
+      before do
+        user_microposts
+      end
       it 'should redirect destroy when not logged in' do
-        expect { delete :destroy, id: user }.to_not change { Micropost.count }
+        expect { delete :destroy, id: user_microposts }.to_not change { Micropost.count }
         expect(response).to redirect_to login_url
       end
     end
@@ -58,9 +58,10 @@ RSpec.describe MicropostsController, type: :controller do
       let(:other) { create :mallory }
       before do
         log_in_as(other)
+        user_microposts
       end
       it 'should redirect destroy for wrong micropost' do
-        expect { delete :destroy, id: other }.to_not change { Micropost.count }
+        expect { delete :destroy, id: user_microposts }.to_not change { Micropost.count }
         expect(response).to redirect_to root_url
       end
     end
