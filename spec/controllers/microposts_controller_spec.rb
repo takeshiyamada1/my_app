@@ -33,14 +33,31 @@ RSpec.describe MicropostsController, type: :controller do
   context 'destroy action' do
     let(:micropost) { create :orange }
     context 'destroy micropost' do
-      before do
-        log_in_as(user)
-        micropost
-      end
-      it 'should redirect destroy for wrong micropost' do
-        expect { delete :destroy, id: micropost }.to change { Micropost.count }.by(-1)
-        expect(response).to redirect_to root_url
-        expect(flash).to be_present
+      shared_examples_for 'should destroy micropost' do
+        before do
+          log_in_as(user)
+          micropost
+        end
+        it 'should redirect destroy for wrong micropost' do
+          expect { delete :destroy, id: micropost }.to change { Micropost.count }.by(-1)
+          expect(response).to redirect_to routes
+          expect(flash).to be_present
+        end
+
+        context 'destroy mictropost redirect root_url' do
+          it_behaves_like 'should destroy micropost' do
+            let(:routes) { root_url }
+          end
+        end
+
+        context 'destroy mictropost redirect referrer' do
+          before do
+            controller.request.should_receive(:referer).and_return('/test')
+          end
+          it_behaves_like 'should destroy micropost' do
+            let(:routes) { '/test' }
+          end
+        end
       end
     end
 
