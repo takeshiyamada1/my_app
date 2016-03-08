@@ -31,14 +31,14 @@ RSpec.describe MicropostsController, type: :controller do
   end
 
   context 'destroy action' do
-    let(:user_microposts) { create :tsubasa_with_microposts }
+    let(:micropost) { create :orange }
     context 'destroy micropost' do
       before do
         log_in_as(user)
-        user_microposts
+        micropost
       end
       it 'should redirect destroy for wrong micropost' do
-        expect { delete :destroy, id: user_microposts }.to change { Micropost.count }.by(-1)
+        expect { delete :destroy, id: micropost }.to change { Micropost.count }.by(-1)
         expect(response).to redirect_to root_url
         expect(flash).to be_present
       end
@@ -46,10 +46,10 @@ RSpec.describe MicropostsController, type: :controller do
 
     context 'when not logged in' do
       before do
-        user_microposts
+        micropost
       end
       it 'should redirect destroy when not logged in' do
-        expect { delete :destroy, id: user_microposts }.to_not change { Micropost.count }
+        expect { delete :destroy, id: micropost }.to_not change { Micropost.count }
         expect(response).to redirect_to login_url
       end
     end
@@ -58,10 +58,10 @@ RSpec.describe MicropostsController, type: :controller do
       let(:other) { create :mallory }
       before do
         log_in_as(other)
-        user_microposts
+        micropost
       end
       it 'should redirect destroy for wrong micropost' do
-        expect { delete :destroy, id: user_microposts }.to_not change { Micropost.count }
+        expect { delete :destroy, id: micropost }.to_not change { Micropost.count }
         expect(response).to redirect_to root_url
       end
     end
