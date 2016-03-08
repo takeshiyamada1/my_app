@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :models do
+  let(:name) { 'Example User' }
+  let(:email) { 'user@example.com' }
+  let(:password) { 'password' }
+  let(:password_confirmation) { 'password' }
+  let(:user) { User.new(name: name, email: email, password: password, password_confirmation: password_confirmation) }
   context 'user' do
-    let(:name) { 'Example User' }
-    let(:email) { 'user@example.com' }
-    let(:password) { 'password' }
-    let(:password_confirmation) { 'password' }
-    let(:user) { User.new(name: name, email: email, password: password, password_confirmation: password_confirmation) }
-
     it 'should be valid' do
       expect(user).to be_valid
     end
@@ -73,10 +72,6 @@ RSpec.describe User, type: :models do
       end
     end
 
-    it 'authenticated? should return false for a user with nil digest' do
-      expect(user).to_not be_authenticated(:remember, '')
-    end
-
     context 'microposts destroyed' do
       before do
         user.save
@@ -86,20 +81,36 @@ RSpec.describe User, type: :models do
         expect { user.destroy }.to change { Micropost.count }.by(-1)
       end
     end
+  end
 
-    context 'follow and unfollow' do
-      let(:tsubasa) { create :tsubasa }
-      let(:lana) { create :lana }
-      it 'should follow and unfollow a user' do
-        expect(tsubasa).to_not be_following(lana)
-        tsubasa.follow(lana)
-        expect(tsubasa).to be_following(lana)
-        expect(lana.followers.include?(tsubasa)).to be_truthy
-        tsubasa.unfollow(lana)
-        expect(tsubasa).to_not be_following(lana)
-      end
+  describe '#remember' do
+  end
+
+  describe '#authenticated' do
+    it 'authenticated? should return false for a user with nil digest' do
+      expect(user).to_not be_authenticated(:remember, '')
     end
+  end
 
+  describe '#forget' do
+  end
+
+  describe '#activate' do
+  end
+
+  describe '#send_activation_email' do
+  end
+
+  describe '#create_reset_digest' do
+  end
+
+  describe '#send_password_reset_email' do
+  end
+
+  describe '#password_reset_expired?' do
+  end
+
+  describe '#feed' do
     context 'right posts' do
       let(:tsubasa) { create :tsubasa }
       let(:sayami) { create :sayami }
@@ -119,5 +130,23 @@ RSpec.describe User, type: :models do
         end
       end
     end
+  end
+
+  describe '#follow #unfollow' do
+    context 'follow and unfollow' do
+      let(:tsubasa) { create :tsubasa }
+      let(:lana) { create :lana }
+      it 'should follow and unfollow a user' do
+        expect(tsubasa).to_not be_following(lana)
+        tsubasa.follow(lana)
+        expect(tsubasa).to be_following(lana)
+        expect(lana.followers.include?(tsubasa)).to be_truthy
+        tsubasa.unfollow(lana)
+        expect(tsubasa).to_not be_following(lana)
+      end
+    end
+  end
+
+  describe '#following' do
   end
 end
