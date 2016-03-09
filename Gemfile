@@ -33,6 +33,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'timecop', '~>0.8.0'
   gem 'capybara', '~>2.6.2'
   gem 'poltergeist', '~>1.8.1'
   gem 'database_cleaner', '~>1.5.1'

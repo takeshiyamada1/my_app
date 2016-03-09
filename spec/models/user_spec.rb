@@ -117,6 +117,20 @@ RSpec.describe User, type: :models do
   end
 
   describe '#activate' do
+    let(:time_now) { Time.zone.local(2016, 3, 9, 0, 0, 0) }
+    context 'when activate user' do
+      before do
+        user.save
+        Timecop.freeze(time_now) do
+          user.activate
+        end
+      end
+      it 'user is activate' do
+        expect(user.activated?).to be_truthy
+        expect(user.activated_at).to be_present
+        expect(user.activated_at).to eq time_now
+      end
+    end
   end
 
   describe '#send_activation_email' do
