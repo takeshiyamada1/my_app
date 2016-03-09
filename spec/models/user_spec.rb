@@ -117,10 +117,11 @@ RSpec.describe User, type: :models do
   end
 
   describe '#activate' do
+    let(:time_now) { Time.zone.local(2016, 3, 9, 0, 0, 0) }
     context 'when activate user' do
       before do
         user.save
-        Timecop.freeze(Time.zone.local(2016, 3, 9, 0, 0, 0)) do
+        Timecop.freeze(time_now) do
           user.activate
         end
       end
