@@ -163,13 +163,11 @@ RSpec.describe User, type: :models do
         user.save
         user.create_reset_digest
       end
-      after do
-        Timecop.return
-      end
       it 'user have not reset sent at' do
         expect(user.reset_sent_at).to be_present
-        Timecop.travel(2.hours.from_now)
-        expect(user.password_reset_expired?).to be_truthy
+        Timecop.travel(2.hours.from_now)　do
+          expect(user.password_reset_expired?).to be_truthy
+        end
       end
     end
   end
