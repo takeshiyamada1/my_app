@@ -128,7 +128,7 @@ RSpec.describe User, type: :models do
       it 'user is activate' do
         expect(user.activated?).to be_truthy
         expect(user.activated_at).to be_present
-        expect(user.activated_at).to eq Time.zone.local(2016,3,9,0,0,0)
+        expect(user.activated_at).to eq time_now
       end
     end
   end
