@@ -158,6 +158,17 @@ RSpec.describe User, type: :models do
   end
 
   describe '#password_reset_expired?' do
+    context 'when password is reset' do
+      before do
+        user.save
+        user.create_reset_digest
+      end
+      it 'user have not reset sent at' do
+        expect(user.reset_sent_at).to be_present
+        Timecop.travel(2.hours.from_now)
+        expect(user.password_reset_expired?).to be_truthy
+      end
+    end
   end
 
   describe '#feed' do
