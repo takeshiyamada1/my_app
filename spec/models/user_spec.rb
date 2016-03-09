@@ -137,6 +137,21 @@ RSpec.describe User, type: :models do
   end
 
   describe '#create_reset_digest' do
+    context 'when create reset digest' do
+      let(:time_now) { Time.zone.local(2016,3,7,18,0,0) }
+      before do
+        user.save
+        Timecop.freeze(time_now) do
+          user.create_reset_digest
+        end
+      end
+      it 'user have reset digest' do
+        expect(user.reset_token).to be_present
+        expect(user.reset_digest).to be_present
+        expect(user.reset_sent_at).to be_present
+        expect(user.reset_sent_at).to eq time_now
+      end
+    end
   end
 
   describe '#send_password_reset_email' do
