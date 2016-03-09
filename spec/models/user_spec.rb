@@ -210,5 +210,16 @@ RSpec.describe User, type: :models do
   end
 
   describe '#following' do
+    context 'when user following' do
+      let(:other_user) { create :lana }
+      before do
+        user.save
+      end
+      it 'user is following' do
+        expect(user.following?(other_user)).to be_falsey
+        user.follow(other_user)
+        expect(user.following?(other_user)).to be_truthy
+      end
+    end
   end
 end
