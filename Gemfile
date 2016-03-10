@@ -30,6 +30,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'rubocop', '~>0.37.2', require: false
   gem 'rspec-rails', '~>3.4.0'
+  gem 'letter_opener', '~>1.4.1'
 end
 
 group :test do
