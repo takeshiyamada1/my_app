@@ -31,6 +31,7 @@ group :development, :test do
   gem 'rubocop', '~>0.37.2', require: false
   gem 'rspec-rails', '~>3.4.0'
   gem 'letter_opener', '~>1.4.1'
+  gem 'annotate', '~>2.7.0'
 end
 
 group :test do
