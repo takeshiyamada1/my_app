@@ -165,7 +165,7 @@ RSpec.describe User, type: :models do
       end
       it 'user have not reset sent at' do
         expect(user.reset_sent_at).to be_present
-        Timecop.travel(2.hours.from_now)　do
+        Timecop.travel(2.hours.from_now) do
           expect(user.password_reset_expired?).to be_truthy
         end
       end
