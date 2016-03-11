@@ -20,6 +20,10 @@ gem 'turbolinks',   '~>2.3.0'
 gem 'jbuilder',     '~>2.2.3'
 gem 'sdoc',         '~>0.4.0', group: :doc
 
+group :development do
+  gem 'i18n_generators', '~>2.0.0'
+end
+
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-doc'
