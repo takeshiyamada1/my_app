@@ -1,6 +1,7 @@
-<% if @feed_items.any? %>
+<% feed_items ||= [] %>
+<% if feed_items.any? %>
   <ol class="microposts">
-    <%= render @feed_items %>
+    <%= render feed_items %>
   </ol>
-  <%= paginate @feed_items %>
+  <%= paginate feed_items %>
 <% end %>

@@ -25,7 +25,6 @@ class MicropostsController < ApplicationController
       flash[:success] = I18n.t('errors.messages.flash_success_micropost')
       redirect_to root_url
     else
-      @feed_items = []
       render 'static_pages/home'
     end
   end
