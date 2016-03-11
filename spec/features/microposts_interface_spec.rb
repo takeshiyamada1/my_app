@@ -8,7 +8,7 @@ RSpec.feature 'MicropostsInterface', type: :feature do
       visit root_path
     end
     it 'micropost interface' do
-      expect(page).to have_selector 'div.pagination'
+      expect(page).to have_selector 'nav.pagination'
       # 無効な送信
       fill_in 'micropost_content', with: ' '
       expect { click_button 'Post' }.to_not change { Micropost.count }

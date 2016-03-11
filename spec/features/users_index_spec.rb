@@ -15,8 +15,8 @@ RSpec.feature 'UsersIndex', type: :feature do
       end
       it 'index as admin including pagination and delete links' do
         expect(page).to have_selector 'h1', text: 'All users'
-        expect(page).to have_selector 'div.pagination'
-        first_page_of_users = User.paginate(page: 1)
+        expect(page).to have_selector 'nav.pagination'
+        first_page_of_users = User.page(1)
         first_page_of_users.each do |user|
           expect(page).to have_link user.name, href: user_path(user)
           unless user == admin
