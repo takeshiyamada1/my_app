@@ -1,6 +1,10 @@
 ---
 ja:
   activerecord:
+    attributes:
+      micropost:
+        content: コンテント
+
     errors:
       messages:
         record_invalid: "バリデーションに失敗しました: %{errors}"
@@ -121,6 +125,7 @@ ja:
       flash_success_profile_update: プロフィールをアップデートしました。
       flash_success_delete: 削除いたしました。
       error_message: "%{count}つのエラーが見つかりまし"
+      messages_ placeholder: 140文字以内で入力してください
       accepted: を受諾してください
       blank: を入力してください
       present: は入力しないでください

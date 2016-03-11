@@ -22,6 +22,12 @@
 en:
   hello: "Hello world"
 
+  activerecord:
+    attributes:
+      micropost:
+        content: Content
+        messages_ placeholder: Compose new micropost...
+
   errors:
     messages:
       flash_create_danger: Invalid email/password combination
