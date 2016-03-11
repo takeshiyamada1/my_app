@@ -13,7 +13,7 @@
     </aside>
     <div class="col-md-8">
       <h3>Micropost Feed</h3>
-      <%= render 'shared/feed' %>
+      <%= render partial: 'shared/feed', locals: { feed_items: @feed_items } %>
     </div>
   </div>
 <% else %>

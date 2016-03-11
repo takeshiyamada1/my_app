@@ -1,4 +1,4 @@
-<% feed_items = current_user.feed.page(params[:page]) %>
+<% feed_items ||= [] %>
 <% if feed_items.any? %>
   <ol class="microposts">
     <%= render feed_items %>
