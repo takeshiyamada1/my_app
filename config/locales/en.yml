@@ -21,3 +21,22 @@
 
 en:
   hello: "Hello world"
+
+  errors:
+    messages:
+      flash_create_danger: Invalid email/password combination
+      flash_create_warning_messages: Account not activated. Check your email for the activation link
+      flash_login: Please log in.
+      flash_send_email: Email sent with password reset instructions
+      flash_not_send_email: Email address not found
+      flash_success_micropost: Micropost created!
+      flash_delete_micropost: Micropost deleted!
+      flash_success_account_activated: Account activated!
+      flash_danger_account: Invalid activation link
+      flash_success_password_reset: Password has been reset
+      flash_danger_password_reset_expired: Password reset has expired
+      flash_info_check_email: Please check your email to activate your account.
+      flash_success_profile_update: Profile updated
+      flash_success_delete: User deleted
+      error_message: "The form contains %{ count_en }."
+

@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :set_locale
   protect_from_forgery with: :exception
   include SessionsHelper
   if !Rails.env.development?
@@ -28,6 +29,10 @@ class ApplicationController < ActionController::Base
       format = params[:format] == :json ? :json : :html
       render template: 'errors/error_500', formats: format, status: 500, layout: 'application', content_type: 'text/html'
     end
+  end
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
   end
 
   private
